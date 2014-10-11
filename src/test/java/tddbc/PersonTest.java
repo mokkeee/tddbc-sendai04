@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
+import org.junit.experimental.theories.DataPoints;
+import org.junit.experimental.theories.Theories;
+import org.junit.experimental.theories.Theory;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
@@ -95,16 +98,48 @@ public class PersonTest {
 
     }
 
-    public static class 名字または名前がない人は生成できない {
+	@RunWith(Theories.class)
+    public static class 名字_名前_性別がない人は生成できない {
+
 		@Rule
 		public ExpectedException expectedException = ExpectedException.none();
+
+		static class Fixture {
+			public String familyName;
+			public String firstName;
+			public Person.Gender gender;
+
+			public Fixture(String s, String s2, Person.Gender g) {
+				this.familyName = s;
+				this.firstName = s2;
+				this.gender = g;
+			}
+		}
+		@DataPoints
+		public static Fixture[] Params = {
+			new Fixture("", "太郎", Person.Gender.Male),
+			new Fixture("佐藤", "", Person.Gender.Male),
+			new Fixture("", "", Person.Gender.Male),
+			new Fixture(null, "太郎", Person.Gender.Male),
+			new Fixture("佐藤", null, Person.Gender.Male),
+			new Fixture(null, null, Person.Gender.Male),
+			new Fixture("佐藤", "太郎", null),
+//				new Fixture("佐藤", "太郎", Person.Gender.Female),
+		};
+
+		@Theory
+		public void 名字_名前_性別がない人は生成できない(Fixture f) throws Exception {
+			expectedException.expect(IllegalArgumentException.class);
+
+			new Person(f.familyName, f.firstName, f.gender);
+		}
 
 		@Test
 		public void 名字がない人は生成できない() throws Exception {
 			expectedException.expect(IllegalArgumentException.class);
 			expectedException.expectMessage("familyName");
 
-			new Person("", "太郎", null);
+			new Person("", "太郎", Person.Gender.Male);
 		}
 
         @Test
@@ -115,27 +150,7 @@ public class PersonTest {
             new Person("佐藤", "", Person.Gender.Female);
         }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void 名字と名前がない人は生成できない() throws Exception {
-            new Person("", "", null);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void 名字がnullの人は生成できない() throws Exception {
-            new Person(null, "太郎", null);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void 名前がnullの人は生成できない() throws Exception {
-            new Person("佐藤", null, null);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void 名字と名前がnullの人は生成できない() throws Exception {
-            new Person(null, null, null);
-        }
-
-        @Test
+       @Test
         public void 性別がない人は生成できない() throws Exception {
             expectedException.expect(IllegalArgumentException.class);
             expectedException.expectMessage("gender is null.");
