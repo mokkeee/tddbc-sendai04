@@ -1,5 +1,7 @@
 package tddbc;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 public class Person {
 
     private String familyName;
@@ -28,6 +30,10 @@ public class Person {
 
     public String getFullName() {
         return familyName + firstName;
+    }
+
+    public boolean isMale() {
+        return true;
     }
 
 }

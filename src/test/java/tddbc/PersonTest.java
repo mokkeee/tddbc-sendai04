@@ -42,6 +42,11 @@ public class PersonTest {
             assertThat(sut.getFullName(), is("佐藤太郎"));
         }
 
+        @Test
+        public void 佐藤太郎の性別は男である() throws Exception {
+            assertThat(sut.isMale(), is(true));
+        }
+
     }
 
     public static class 鈴木一郎の場合 {
