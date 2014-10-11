@@ -76,29 +76,45 @@ public class PersonTest {
 
         @Test(expected = IllegalArgumentException.class)
         public void 名字がない人は生成できない() throws Exception {
-            Person sut = new Person("", "太郎");
+            new Person("", "太郎");
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void 名前がない人は生成できない() throws Exception {
-            Person sut = new Person("佐藤", "");
+            new Person("佐藤", "");
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void 名字と名前がない人は生成できない() throws Exception {
-            Person sut = new Person("", "");
+            new Person("", "");
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void 名字がnullの人は生成できない() throws Exception {
-            Person sut = new Person(null, "太郎");
+            new Person(null, "太郎");
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void 名前がnullの人は生成できない() throws Exception {
-            Person sut = new Person("佐藤", null);
+            new Person("佐藤", null);
         }
 
+        @Test(expected = IllegalArgumentException.class)
+        public void 名字と名前がnullの人は生成できない() throws Exception {
+            new Person(null, null);
+        }
+
+        @Test
+        public void 名字がない人を生成しようとすると名字がないエラーになる() throws Exception {
+            try {
+                new Person("", "太郎");
+                fail();
+            } catch (IllegalArgumentException sut) {
+                assertThat(sut.getMessage(), is("familyName:"));
+                System.out.println(sut.getMessage());
+            }
+        }
+        
     }
 
 }
