@@ -59,4 +59,12 @@ public class Person {
         return false;
     }
 
+    public boolean isMarriable(Person target) {
+        if (gender == target.gender) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

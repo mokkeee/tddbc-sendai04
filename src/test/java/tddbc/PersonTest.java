@@ -50,10 +50,10 @@ public class PersonTest {
             assertThat(sut.isMale(), is(true));
         }
 
-		@Test
-		public void 佐藤太郎の性別は女ではない() throws Exception {
-			assertThat(sut.isFemale(), is(false));
-		}
+        @Test
+        public void 佐藤太郎の性別は女ではない() throws Exception {
+            assertThat(sut.isFemale(), is(false));
+        }
 
     }
 
@@ -86,71 +86,103 @@ public class PersonTest {
             assertThat(sut.getFullName(), is("鈴木花子"));
         }
 
-		@Test
-		public void 鈴木花子の性別は男ではない() throws Exception {
-			assertThat(sut.isMale(), is(false));
-		}
+        @Test
+        public void 鈴木花子の性別は男ではない() throws Exception {
+            assertThat(sut.isMale(), is(false));
+        }
 
-		@Test
-		public void 鈴木花子の性別は女である() throws Exception {
-			assertThat(sut.isFemale(), is(true));
-		}
+        @Test
+        public void 鈴木花子の性別は女である() throws Exception {
+            assertThat(sut.isFemale(), is(true));
+        }
 
     }
 
-	@RunWith(Theories.class)
+    @RunWith(Theories.class)
+    public static class 結婚できるかテスト {
+        static class Fixture {
+            public Person p1;
+            public Person p2;
+            public boolean result;
+
+            public Fixture(Person p1, Person p2, boolean r) {
+                this.p1 = p1;
+                this.p2 = p2;
+                this.result = r;
+            }
+        }
+
+        static Person p1 = new Person("佐藤", "太郎", Person.Gender.Male);
+        static Person p2 = new Person("山田", "花子", Person.Gender.Female);
+        static Person p3 = new Person("鈴木", "一郎", Person.Gender.Male);
+
+        @DataPoints
+        public static Fixture[] Params = {
+                new Fixture(p1, p2, true),
+                new Fixture(p1, p3, false),
+        };
+
+        @Theory
+        public void 同姓とは結婚できない(Fixture f) {
+            assertThat(f.p1.isMarriable(f.p2), is(f.result));
+        }
+
+    }
+
+    @RunWith(Theories.class)
     public static class 名字_名前_性別がない人は生成できない {
 
-		@Rule
-		public ExpectedException expectedException = ExpectedException.none();
+        @Rule
+        public ExpectedException expectedException = ExpectedException.none();
 
-		static class Fixture {
-			public String familyName;
-			public String firstName;
-			public Person.Gender gender;
+        static class Fixture {
+            public String familyName;
+            public String firstName;
+            public Person.Gender gender;
 
-			public Fixture(String s, String s2, Person.Gender g) {
-				this.familyName = s;
-				this.firstName = s2;
-				this.gender = g;
-			}
-		}
-		@DataPoints
-		public static Fixture[] Params = {
-			new Fixture("", "太郎", Person.Gender.Male),
-			new Fixture("佐藤", "", Person.Gender.Male),
-			new Fixture("", "", Person.Gender.Male),
-			new Fixture(null, "太郎", Person.Gender.Male),
-			new Fixture("佐藤", null, Person.Gender.Male),
-			new Fixture(null, null, Person.Gender.Male),
-			new Fixture("佐藤", "太郎", null),
+            public Fixture(String s, String s2, Person.Gender g) {
+                this.familyName = s;
+                this.firstName = s2;
+                this.gender = g;
+            }
+        }
+
+        @DataPoints
+        public static Fixture[] Params = {
+                new Fixture("", "太郎", Person.Gender.Male),
+                new Fixture("佐藤", "", Person.Gender.Male),
+                new Fixture("", "", Person.Gender.Male),
+                new Fixture(null, "太郎", Person.Gender.Male),
+                new Fixture("佐藤", null, Person.Gender.Male),
+                new Fixture(null, null, Person.Gender.Male),
+                new Fixture("佐藤", "太郎", null),
 //				new Fixture("佐藤", "太郎", Person.Gender.Female),
-		};
+        };
 
-		@Theory
-		public void 名字_名前_性別がない人は生成できない(Fixture f) throws Exception {
-			expectedException.expect(IllegalArgumentException.class);
+        @Theory
+        public void 名字_名前_性別がない人は生成できない(Fixture f) throws Exception {
+            expectedException.expect(IllegalArgumentException.class);
 
-			new Person(f.familyName, f.firstName, f.gender);
-		}
+            new Person(f.familyName, f.firstName, f.gender);
+        }
 
-		@Test
-		public void 名字がない人は生成できない() throws Exception {
-			expectedException.expect(IllegalArgumentException.class);
-			expectedException.expectMessage("familyName");
+        @Test
+        public void 名字がない人は生成できない() throws Exception {
+            expectedException.expect(IllegalArgumentException.class);
+            expectedException.expectMessage("familyName");
 
-			new Person("", "太郎", Person.Gender.Male);
-		}
+            new Person("", "太郎", Person.Gender.Male);
+        }
 
         @Test
         public void 名前がない人は生成できない() throws Exception {
-			expectedException.expect(IllegalArgumentException.class);
-			expectedException.expectMessage("firstName");
+            expectedException.expect(IllegalArgumentException.class);
+            expectedException.expectMessage("firstName");
 
             new Person("佐藤", "", Person.Gender.Female);
         }
 
-       @Test
+        @Test
         public void 性別がない人は生成できない() throws Exception {
             expectedException.expect(IllegalArgumentException.class);
             expectedException.expectMessage("gender is null.");
