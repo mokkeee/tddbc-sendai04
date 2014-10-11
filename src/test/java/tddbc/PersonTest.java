@@ -1,8 +1,10 @@
 package tddbc;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -74,14 +76,22 @@ public class PersonTest {
     }
 
     public static class 名字または名前がない人は生成できない {
+		@Rule
+		public ExpectedException expectedException = ExpectedException.none();
 
-        @Test(expected = IllegalArgumentException.class)
-        public void 名字がない人は生成できない() throws Exception {
-            new Person("", "太郎");
-        }
+		@Test
+		public void 名字がない人は生成できない() throws Exception {
+			expectedException.expect(IllegalArgumentException.class);
+			expectedException.expectMessage("familyName:");
 
-        @Test(expected = IllegalArgumentException.class)
+			new Person("", "太郎");
+		}
+
+        @Test
         public void 名前がない人は生成できない() throws Exception {
+			expectedException.expect(IllegalArgumentException.class);
+			expectedException.expectMessage("firstName:");
+
             new Person("佐藤", "");
         }
 
@@ -104,18 +114,5 @@ public class PersonTest {
         public void 名字と名前がnullの人は生成できない() throws Exception {
             new Person(null, null);
         }
-
-        @Test
-        public void 名字がない人を生成しようとすると名字がないエラーになる() throws Exception {
-            try {
-                new Person("", "太郎");
-                fail();
-            } catch (IllegalArgumentException sut) {
-                assertThat(sut.getMessage(), is("familyName:"));
-                System.out.println(sut.getMessage());
-            }
-        }
-
     }
-
 }
