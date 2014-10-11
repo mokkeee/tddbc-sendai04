@@ -5,7 +5,14 @@ package tddbc;
  */
 public class Person {
 
-	public Person(String familyName, String FirstName) {
+	public Person(String familyName, String firstName) {
+        if (familyName.equals("")) {
+            throw new IllegalArgumentException();
+        }
+
+        if (firstName.equals("")) {
+            throw new IllegalArgumentException();
+        }
 	}
 
 	public String getFamilyName() {

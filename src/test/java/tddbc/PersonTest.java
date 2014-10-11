@@ -34,5 +34,19 @@ public class PersonTest {
         assertThat(sut.getFullName(), is("佐藤太郎"));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void 名字がない人は生成できない() throws Exception {
+        Person sut = new Person("", "太郎");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 名前がない人は生成できない() throws Exception {
+        Person sut = new Person("佐藤", "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void 名字と名前がない人は生成できない() throws Exception {
+        Person sut = new Person("", "");
+    }
 
 }
