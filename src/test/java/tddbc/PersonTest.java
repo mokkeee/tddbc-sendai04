@@ -16,4 +16,9 @@ public class PersonTest {
         assertThat(sut.getFamilyName(), is("佐藤"));
     }
 
+	@Test
+	public void 佐藤太郎の名前は太郎である() throws Exception {
+		Person sut = new Person();
+		assertThat(sut.getFirstName(), is("太郎"));
+	}
 }

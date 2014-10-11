@@ -9,4 +9,7 @@ public class Person {
         return "佐藤";
     }
 
+	public String getFirstName() {
+		return "太郎";
+	}
 }
