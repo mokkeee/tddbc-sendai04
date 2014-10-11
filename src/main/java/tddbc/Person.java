@@ -5,7 +5,10 @@ package tddbc;
  */
 public class Person {
 
-    public String getFamilyName() {
+	public Person(String familyName, String FirstName) {
+	}
+
+	public String getFamilyName() {
         return "佐藤";
     }
 
