@@ -19,7 +19,7 @@ public class PersonTest {
 
         @Before
         public void setUp() throws Exception {
-            sut = new Person("佐藤", "太郎");
+            sut = new Person("佐藤", "太郎", Person.Gender.Male);
         }
 
         @Test
@@ -47,36 +47,51 @@ public class PersonTest {
             assertThat(sut.isMale(), is(true));
         }
 
+		@Test
+		public void 佐藤太郎の性別は女ではない() throws Exception {
+			assertThat(sut.isFemale(), is(false));
+		}
+
     }
 
-    public static class 鈴木一郎の場合 {
+    public static class 鈴木花子の場合 {
 
         Person sut;
 
         @Before
         public void setUp() throws Exception {
-            sut = new Person("鈴木", "一郎");
+            sut = new Person("鈴木", "花子", Person.Gender.Female);
         }
 
         @Test
-        public void 鈴木一郎を生成できる() throws Exception {
+        public void 鈴木花子を生成できる() throws Exception {
             assertThat(sut, is(instanceOf(Person.class)));
         }
 
         @Test
-        public void 鈴木一郎の名字は鈴木である() throws Exception {
+        public void 鈴木花子の名字は鈴木である() throws Exception {
             assertThat(sut.getFamilyName(), is("鈴木"));
         }
 
         @Test
-        public void 鈴木一郎の名前は一郎である() throws Exception {
-            assertThat(sut.getFirstName(), is("一郎"));
+        public void 鈴木花子の名前は一郎である() throws Exception {
+            assertThat(sut.getFirstName(), is("花子"));
         }
 
         @Test
-        public void 鈴木一郎の氏名は鈴木一郎である() throws Exception {
-            assertThat(sut.getFullName(), is("鈴木一郎"));
+        public void 鈴木花子の氏名は鈴木一郎である() throws Exception {
+            assertThat(sut.getFullName(), is("鈴木花子"));
         }
+
+		@Test
+		public void 鈴木花子の性別は男ではない() throws Exception {
+			assertThat(sut.isMale(), is(false));
+		}
+
+		@Test
+		public void 鈴木花子の性別は女である() throws Exception {
+			assertThat(sut.isFemale(), is(true));
+		}
 
     }
 
@@ -89,7 +104,7 @@ public class PersonTest {
 			expectedException.expect(IllegalArgumentException.class);
 			expectedException.expectMessage("familyName:");
 
-			new Person("", "太郎");
+			new Person("", "太郎", null);
 		}
 
         @Test
@@ -97,27 +112,27 @@ public class PersonTest {
 			expectedException.expect(IllegalArgumentException.class);
 			expectedException.expectMessage("firstName:");
 
-            new Person("佐藤", "");
+            new Person("佐藤", "", null);
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void 名字と名前がない人は生成できない() throws Exception {
-            new Person("", "");
+            new Person("", "", null);
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void 名字がnullの人は生成できない() throws Exception {
-            new Person(null, "太郎");
+            new Person(null, "太郎", null);
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void 名前がnullの人は生成できない() throws Exception {
-            new Person("佐藤", null);
+            new Person("佐藤", null, null);
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void 名字と名前がnullの人は生成できない() throws Exception {
-            new Person(null, null);
+            new Person(null, null, null);
         }
     }
 }

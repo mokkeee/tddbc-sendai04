@@ -1,13 +1,17 @@
 package tddbc;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 public class Person {
+
+	public static enum Gender {
+		Male,
+		Female,
+	};
 
     private String familyName;
     private String firstName;
+	private Gender gender;
 
-    public Person(String familyName, String firstName) throws IllegalArgumentException {
+    public Person(String familyName, String firstName, Gender gender) throws IllegalArgumentException {
         if (familyName == null || familyName.equals("")) {
             throw new IllegalArgumentException("familyName:" + familyName);
         }
@@ -18,6 +22,7 @@ public class Person {
 
         this.familyName = familyName;
         this.firstName = firstName;
+		this.gender = gender;
     }
 
     public String getFamilyName() {
@@ -33,7 +38,10 @@ public class Person {
     }
 
     public boolean isMale() {
-        return true;
+        return gender == Gender.Male;
     }
 
+	public boolean isFemale() {
+		return gender == Gender.Female;
+	}
 }
