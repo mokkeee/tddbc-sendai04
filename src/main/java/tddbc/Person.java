@@ -5,26 +5,31 @@ package tddbc;
  */
 public class Person {
 
+	private String familyName;
+	private String firstName;
+
 	public Person(String familyName, String firstName) {
         if (familyName == null || familyName.equals("")) {
             throw new IllegalArgumentException();
         }
+		this.familyName = familyName;
 
         if (firstName == null || firstName.equals("")) {
             throw new IllegalArgumentException();
         }
+		this.firstName = firstName;
 	}
 
 	public String getFamilyName() {
-        return "佐藤";
+        return familyName;
     }
 
 	public String getFirstName() {
-		return "太郎";
+		return firstName;
 	}
 
     public String getFullName() {
-        return "佐藤太郎";
+        return familyName + firstName;
     }
 
 }

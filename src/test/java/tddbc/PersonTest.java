@@ -40,6 +40,35 @@ public class PersonTest {
         }
     }
 
+	public static class 鈴木一郎の場合 {
+		Person sut;
+
+		@Before
+		public void setUp() throws Exception {
+			sut = new Person("鈴木", "一郎");
+		}
+
+		@Test
+		public void 鈴木一郎を生成できる() throws Exception {
+			assertThat(sut, is(instanceOf(Person.class)));
+		}
+
+		@Test
+		public void 鈴木一郎の名字は鈴木である() throws Exception {
+			assertThat(sut.getFamilyName(), is("鈴木"));
+		}
+
+		@Test
+		public void 鈴木一郎の名前は一郎である() throws Exception {
+			assertThat(sut.getFirstName(), is("一郎"));
+		}
+
+		@Test
+		public void 鈴木一郎の氏名は鈴木一郎である() throws Exception {
+			assertThat(sut.getFullName(), is("鈴木一郎"));
+		}
+	}
+
     public static class 名字または名前がない人は生成できない {
 
         @Test(expected = IllegalArgumentException.class)
@@ -68,5 +97,4 @@ public class PersonTest {
         }
 
     }
-
 }
