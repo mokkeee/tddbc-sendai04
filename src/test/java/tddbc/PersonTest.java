@@ -49,4 +49,13 @@ public class PersonTest {
         Person sut = new Person("", "");
     }
 
+	@Test(expected = IllegalArgumentException.class)
+	public void 名字がnullの人は生成できない() throws Exception {
+		new Person(null, "太郎");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void 名前がnullの人は生成できない() throws Exception {
+		Person sut = new Person("佐藤", null);
+	}
 }

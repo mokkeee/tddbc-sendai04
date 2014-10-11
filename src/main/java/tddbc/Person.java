@@ -6,11 +6,11 @@ package tddbc;
 public class Person {
 
 	public Person(String familyName, String firstName) {
-        if (familyName.equals("")) {
+        if (familyName == null || familyName.equals("")) {
             throw new IllegalArgumentException();
         }
 
-        if (firstName.equals("")) {
+        if (firstName == null || firstName.equals("")) {
             throw new IllegalArgumentException();
         }
 	}
