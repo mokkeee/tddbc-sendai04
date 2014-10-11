@@ -12,4 +12,9 @@ public class Person {
 	public String getFirstName() {
 		return "太郎";
 	}
+
+    public String getFullName() {
+        return "佐藤太郎";
+    }
+
 }
