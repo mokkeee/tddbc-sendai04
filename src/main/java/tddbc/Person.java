@@ -2,14 +2,16 @@ package tddbc;
 
 public class Person {
 
-	public static enum Gender {
-		Male,
-		Female,
-	};
+    public static enum Gender {
+        Male,
+        Female,
+    }
+
+    ;
 
     private String familyName;
     private String firstName;
-	private Gender gender;
+    private Gender gender;
 
     public Person(String familyName, String firstName, Gender gender) throws IllegalArgumentException {
         if (familyName == null || familyName.equals("")) {
@@ -20,9 +22,13 @@ public class Person {
             throw new IllegalArgumentException("firstName:" + firstName);
         }
 
+        if (gender == null) {
+            throw new IllegalArgumentException("gender is null.");
+        }
+
         this.familyName = familyName;
         this.firstName = firstName;
-		this.gender = gender;
+        this.gender = gender;
     }
 
     public String getFamilyName() {
@@ -38,10 +44,19 @@ public class Person {
     }
 
     public boolean isMale() {
-        return gender == Gender.Male;
+        if (gender == Gender.Male) {
+            return true;
+        }
+
+        return false;
     }
 
-	public boolean isFemale() {
-		return gender == Gender.Female;
-	}
+    public boolean isFemale() {
+        if (gender == Gender.Female) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

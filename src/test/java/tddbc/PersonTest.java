@@ -102,7 +102,7 @@ public class PersonTest {
 		@Test
 		public void 名字がない人は生成できない() throws Exception {
 			expectedException.expect(IllegalArgumentException.class);
-			expectedException.expectMessage("familyName:");
+			expectedException.expectMessage("familyName");
 
 			new Person("", "太郎", null);
 		}
@@ -110,9 +110,9 @@ public class PersonTest {
         @Test
         public void 名前がない人は生成できない() throws Exception {
 			expectedException.expect(IllegalArgumentException.class);
-			expectedException.expectMessage("firstName:");
+			expectedException.expectMessage("firstName");
 
-            new Person("佐藤", "", null);
+            new Person("佐藤", "", Person.Gender.Female);
         }
 
         @Test(expected = IllegalArgumentException.class)
@@ -133,6 +133,14 @@ public class PersonTest {
         @Test(expected = IllegalArgumentException.class)
         public void 名字と名前がnullの人は生成できない() throws Exception {
             new Person(null, null, null);
+        }
+
+        @Test
+        public void 性別がない人は生成できない() throws Exception {
+            expectedException.expect(IllegalArgumentException.class);
+            expectedException.expectMessage("gender is null.");
+
+            new Person("佐藤", "太郎", null);
         }
     }
 }
