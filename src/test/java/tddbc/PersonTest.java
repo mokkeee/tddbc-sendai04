@@ -43,6 +43,7 @@ public class PersonTest {
     }
 
     public static class 鈴木一郎の場合 {
+
         Person sut;
 
         @Before
@@ -114,7 +115,7 @@ public class PersonTest {
                 System.out.println(sut.getMessage());
             }
         }
-        
+
     }
 
 }
