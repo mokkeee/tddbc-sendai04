@@ -112,14 +112,17 @@ public class PersonTest {
             }
         }
 
-        static Person p1 = new Person("佐藤", "太郎", Person.Gender.Male);
-        static Person p2 = new Person("山田", "花子", Person.Gender.Female);
-        static Person p3 = new Person("鈴木", "一郎", Person.Gender.Male);
+        static Person 佐藤太郎 = new Person("佐藤", "太郎", Person.Gender.Male);
+        static Person 山田花子 = new Person("山田", "花子", Person.Gender.Female);
+        static Person 鈴木一郎 = new Person("鈴木", "一郎", Person.Gender.Male);
+		static Person 三浦亜紀子 = new Person("三浦", "亜紀子", Person.Gender.Female);
 
         @DataPoints
         public static Fixture[] Params = {
-                new Fixture(p1, p2, true),
-                new Fixture(p1, p3, false),
+                new Fixture(佐藤太郎, 山田花子, true),
+                new Fixture(佐藤太郎, 鈴木一郎, false),
+				new Fixture(山田花子, 三浦亜紀子, false),
+				new Fixture(三浦亜紀子, 鈴木一郎, true),
         };
 
         @Theory
