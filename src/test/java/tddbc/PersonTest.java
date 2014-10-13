@@ -163,14 +163,14 @@ public class PersonTest {
         };
 
         @Theory
-        public void 名字_名前_性別がない人は生成できない(Fixture f) throws Exception {
+        public void 名字_名前_性別がない人を生成しようとするとIllegalArgumentExceptionが発生する(Fixture f) throws Exception {
             expectedException.expect(IllegalArgumentException.class);
 
             new Person(f.familyName, f.firstName, f.gender);
         }
 
         @Test
-        public void 名字がない人は生成できない場合のエラーメッセージ確認() throws Exception {
+        public void 名字がない人を生成した場合のエラーメッセージ確認() throws Exception {
             expectedException.expect(IllegalArgumentException.class);
             expectedException.expectMessage("familyName");
 
@@ -178,7 +178,7 @@ public class PersonTest {
         }
 
         @Test
-        public void 名前がない人は生成できない場合のエラーメッセージ確認() throws Exception {
+        public void 名前がない人を生成した場合のエラーメッセージ確認() throws Exception {
             expectedException.expect(IllegalArgumentException.class);
             expectedException.expectMessage("firstName");
 
@@ -186,7 +186,7 @@ public class PersonTest {
         }
 
         @Test
-        public void 性別がない人は生成できない場合のエラーメッセージ確認() throws Exception {
+        public void 性別がない人を生成した場合のエラーメッセージ確認() throws Exception {
             expectedException.expect(IllegalArgumentException.class);
             expectedException.expectMessage("gender is null.");
 
