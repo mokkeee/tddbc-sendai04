@@ -143,8 +143,8 @@ public class PersonTest {
             public String firstName;
             public Person.Gender gender;
 
-            public Fixture(String s, String s2, Person.Gender g) {
-                this.familyName = s;
+            public Fixture(String s1, String s2, Person.Gender g) {
+                this.familyName = s1;
                 this.firstName = s2;
                 this.gender = g;
             }
@@ -170,7 +170,7 @@ public class PersonTest {
         }
 
         @Test
-        public void 名字がない人は生成できない() throws Exception {
+        public void 名字がない人は生成できない場合のエラーメッセージ確認() throws Exception {
             expectedException.expect(IllegalArgumentException.class);
             expectedException.expectMessage("familyName");
 
@@ -178,7 +178,7 @@ public class PersonTest {
         }
 
         @Test
-        public void 名前がない人は生成できない() throws Exception {
+        public void 名前がない人は生成できない場合のエラーメッセージ確認() throws Exception {
             expectedException.expect(IllegalArgumentException.class);
             expectedException.expectMessage("firstName");
 
@@ -186,7 +186,7 @@ public class PersonTest {
         }
 
         @Test
-        public void 性別がない人は生成できない() throws Exception {
+        public void 性別がない人は生成できない場合のエラーメッセージ確認() throws Exception {
             expectedException.expect(IllegalArgumentException.class);
             expectedException.expectMessage("gender is null.");
 
