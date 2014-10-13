@@ -5,9 +5,7 @@ public class Person {
     public static enum Gender {
         Male,
         Female,
-    }
-
-    ;
+    };
 
     private String familyName;
     private String firstName;
