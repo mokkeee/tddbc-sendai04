@@ -13,11 +13,11 @@ public class Person {
 
     public Person(String familyName, String firstName, Gender gender) throws IllegalArgumentException {
         if (familyName == null || familyName.equals("")) {
-            throw new IllegalArgumentException("familyName:" + familyName);
+            throw new IllegalArgumentException("familyName is null or empty.");
         }
 
         if (firstName == null || firstName.equals("")) {
-            throw new IllegalArgumentException("firstName:" + firstName);
+            throw new IllegalArgumentException("firstName is null or empty.");
         }
 
         if (gender == null) {
@@ -42,27 +42,14 @@ public class Person {
     }
 
     public boolean isMale() {
-        if (gender == Gender.Male) {
-            return true;
-        }
-
-        return false;
+        return gender == Gender.Male;
     }
 
     public boolean isFemale() {
-        if (gender == Gender.Female) {
-            return true;
-        }
-
-        return false;
+        return gender == Gender.Female;
     }
 
     public boolean isMarriable(Person target) {
-        if (gender == target.gender) {
-            return false;
-        }
-
-        return true;
+        return gender == target.gender;
     }
-
 }
